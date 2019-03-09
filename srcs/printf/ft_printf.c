@@ -42,8 +42,20 @@ int		get_flag(char c)
 	return (0);
 }
 
+int		specifier_di(int i, t_printf *inst, t_format *fmt)
+{
+	printf("hey\n");
+	return (0);
+}
+
 int		compute_specifier(t_printf *inst, t_format *fmt)
 {
+	char	*c;
+
+	if (!(c = ft_strchr("sSpdDiouxXcCfF", inst->format[inst->cursor])))
+		return (-1);
+	printf("char %c\n", *c);
+	g_spe[CHAR(*c)].fn(va_arg(inst->args, int), inst, fmt);
 	printf("Where am i? %d %s\n", fmt->sub_sp, inst->format + inst->cursor);
 	return (0);
 }
@@ -135,7 +147,7 @@ int		ft_printf(const char *format, ...)
 	{
 		if (format[inst.cursor] == '%')
 		{
-			if (!compute_formatter(&inst))
+			if (compute_formatter(&inst) == -1)
 				break ;
 		}
 		else

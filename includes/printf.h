@@ -59,9 +59,20 @@ typedef struct		s_format
 typedef struct		s_specifier
 {
 	int				(*fn)();
+	
 }					t_specifier;
 
+int					specifier_di(int i, t_printf *inst, t_format *fmt);
 
 int					ft_printf(const char *format, ...);
+
+
+# define SPECIFIERS_COUNT 26
+# define CHAR(x) (x - 'a')
+
+static t_specifier	g_spe[SPECIFIERS_COUNT] =
+{
+	[CHAR('d')] = (t_specifier){ specifier_di }
+};
 
 #endif

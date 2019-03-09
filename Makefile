@@ -17,7 +17,7 @@ OBJ_DIR = $(BUILD_DIR)/objs
 DEP_DIR = $(BUILD_DIR)/deps
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Iincludes
+CFLAGS = -Wall -Wextra -Iincludes
 PRECOMPILE = @mkdir -p $(dir $@)
 POSTCOMPILE =
 
