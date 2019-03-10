@@ -16,7 +16,7 @@
 # include "libft.h"
 # include <stdarg.h>
 
-# define PRINTF_BUFF 4
+# define PRINTF_BUFF 4096
 
 typedef enum		e_flag
 {
@@ -59,10 +59,9 @@ typedef struct		s_format
 typedef struct		s_specifier
 {
 	int				(*fn)();
-	
 }					t_specifier;
 
-int					specifier_di(int i, t_printf *inst, t_format *fmt);
+int					specifier_di(size_t i, t_printf *inst, t_format *fmt);
 
 int					ft_printf(const char *format, ...);
 

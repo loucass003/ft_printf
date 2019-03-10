@@ -42,9 +42,36 @@ int		get_flag(char c)
 	return (0);
 }
 
-int		specifier_di(int i, t_printf *inst, t_format *fmt)
+int		numlen(ssize_t i)
 {
-	printf("hey\n");
+	int	j;
+
+	j = 0;
+	while (i > 0)
+	{
+		j++;
+		i /= 10;
+	}
+	return (j);
+}
+
+int		specifier_di(size_t i, t_printf *inst, t_format *fmt)
+{
+	char	tab[20];
+	size_t	len;
+	int		j;
+
+	len = numlen(i);
+	printf("hey %ld\n", len);
+	ft_bzero(tab, 20);
+	j = len;
+	while (--j > -1)
+	{
+		printf("d %c %ld\n", (i % 10) + '0', j);
+		tab[j] = (i % 10) + '0';
+		i /= 10;
+	}
+	write_buf(inst, tab, len);
 	return (0);
 }
 
@@ -54,9 +81,9 @@ int		compute_specifier(t_printf *inst, t_format *fmt)
 
 	if (!(c = ft_strchr("sSpdDiouxXcCfF", inst->format[inst->cursor])))
 		return (-1);
-	printf("char %c\n", *c);
-	g_spe[CHAR(*c)].fn(va_arg(inst->args, int), inst, fmt);
-	printf("Where am i? %d %s\n", fmt->sub_sp, inst->format + inst->cursor);
+//	printf("char %c\n", *c);
+	g_spe[CHAR(*c)].fn((size_t)ft_abs(va_arg(inst->args, int)), inst, fmt);
+//	printf("Where am i? %d %s\n", fmt->sub_sp, inst->format + inst->cursor);
 	return (0);
 }
 
