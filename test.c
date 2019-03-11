@@ -1,12 +1,10 @@
 #include "libft.h"
 #include <stdio.h>
+#include <limits.h>
 
 int		main(void)
 {
-	ft_printf("% 2.55lld\n", -2147483647);
-	printf("%-f\n", -25.);
-	printf("%4d\n", 25);
-	printf("%05d\n", 25);
-	printf("%#f\n", 25.);
-	printf("% d\n", 25);
+	ft_printf("je suis une licorne %hhd %i \n", 15, 42);
+	printf("je suis une licorne %hhd %i \n", 15, 42);
+
 }

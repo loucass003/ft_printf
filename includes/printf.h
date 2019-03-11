@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 14:18:37 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/07 17:28:11 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/11 17:07:30 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ typedef enum		e_subsp
 	sp_ll
 }					t_subsp;
 
+typedef enum		e_types
+{
+	UINT,
+	INT,
+	ULONG,
+	LONG,
+	ULLONG,
+	LLONG,
+}					t_types;
+
 typedef struct		s_printf
 {
 	va_list			args;
@@ -54,6 +64,7 @@ typedef struct		s_format
 	long			precision;
 	t_subsp			sub_sp;
 	char			specifier;
+	t_bool			negative;
 }					t_format;
 
 typedef struct		s_specifier
@@ -61,7 +72,14 @@ typedef struct		s_specifier
 	int				(*fn)();
 }					t_specifier;
 
-int					specifier_di(size_t i, t_printf *inst, t_format *fmt);
+typedef union		u_arg
+{
+	uintmax_t		i;
+	long double		d;
+	void			*p;
+}					t_arg;
+
+int					specifier_d(t_arg i, t_printf *inst, t_format *fmt);
 
 int					ft_printf(const char *format, ...);
 
@@ -69,9 +87,10 @@ int					ft_printf(const char *format, ...);
 # define SPECIFIERS_COUNT 26
 # define CHAR(x) (x - 'a')
 
-static t_specifier	g_spe[SPECIFIERS_COUNT] =
+static t_specifier	g_spe[] =
 {
-	[CHAR('d')] = (t_specifier){ specifier_di }
+	[CHAR('d')] = (t_specifier){ specifier_d },
+	[CHAR('i')] = (t_specifier){ specifier_d }
 };
 
 #endif

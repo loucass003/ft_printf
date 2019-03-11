@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 14:34:00 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/07 16:45:01 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/11 18:23:43 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,25 @@
 
 int		write_buf(t_printf *inst, const char *str, size_t len)
 {
-	if (inst->buff_pos + len >= PRINTF_BUFF)
+	while (1)
 	{
-		write(1, inst->buffer, inst->buff_pos);
-		ft_bzero(inst->buffer, PRINTF_BUFF);
-		inst->buff_pos = 0;
+		if (len < PRINTF_BUFF - inst->buff_pos)
+		{
+			ft_memcpy(inst->buffer + inst->buff_pos, str,
+				len);
+			inst->buff_pos += len;
+			break ;
+		}
+		else
+		{
+			ft_memcpy(inst->buffer + inst->buff_pos, str,
+				PRINTF_BUFF - inst->buff_pos);
+			write(1, inst->buffer, PRINTF_BUFF);
+			len -= PRINTF_BUFF - inst->buff_pos;
+			str += PRINTF_BUFF - inst->buff_pos;
+			inst->buff_pos = 0;
+		}
 	}
-	ft_strncpy(inst->buffer + inst->buff_pos, str, len);
-	inst->buff_pos += len;
 	return (0);
 }
 
@@ -42,6 +53,25 @@ int		get_flag(char c)
 	return (0);
 }
 
+uintmax_t	downcast(t_subsp sp, uintmax_t nb, t_bool unsign)
+{
+	if (unsign)
+	{
+		if (sp == sp_hh)
+			return ((unsigned char)nb);
+		if (sp == sp_h)
+			return ((unsigned short)nb);
+	}
+	else
+	{
+		if (sp == sp_hh)
+			return ((char)nb);
+		if (sp == sp_h)
+			return ((short)nb);
+	}
+	return (nb);
+}
+
 int		numlen(ssize_t i)
 {
 	int	j;
@@ -55,35 +85,35 @@ int		numlen(ssize_t i)
 	return (j);
 }
 
-int		specifier_di(size_t i, t_printf *inst, t_format *fmt)
+int		specifier_d(t_arg i, t_printf *inst, t_format *fmt)
 {
-	char	tab[20];
-	size_t	len;
-	int		j;
+	t_int_str	str;
 
-	len = numlen(i);
-	printf("hey %ld\n", len);
-	ft_bzero(tab, 20);
-	j = len;
-	while (--j > -1)
-	{
-		printf("d %c %ld\n", (i % 10) + '0', j);
-		tab[j] = (i % 10) + '0';
-		i /= 10;
-	}
-	write_buf(inst, tab, len);
+	str = ft_uint_to_str(downcast(fmt->sub_sp, i.i, FALSE));
+	write_buf(inst, str.str, str.len);
 	return (0);
+}
+
+t_arg	get_arg(t_printf *inst, t_format *fmt)
+{
+	t_arg	arg;
+
+	arg.i = 0;
+	if (fmt->specifier == 'd' || fmt->specifier == 'i')
+		arg.i = va_arg(inst->args, int);
+	return (arg);
 }
 
 int		compute_specifier(t_printf *inst, t_format *fmt)
 {
 	char	*c;
+	t_arg	arg;
 
 	if (!(c = ft_strchr("sSpdDiouxXcCfF", inst->format[inst->cursor])))
 		return (-1);
-//	printf("char %c\n", *c);
-	g_spe[CHAR(*c)].fn((size_t)ft_abs(va_arg(inst->args, int)), inst, fmt);
-//	printf("Where am i? %d %s\n", fmt->sub_sp, inst->format + inst->cursor);
+	fmt->specifier = *c;
+	arg = get_arg(inst, fmt);
+	g_spe[CHAR(fmt->specifier)].fn(arg, inst, fmt);
 	return (0);
 }
 
@@ -180,6 +210,17 @@ int		ft_printf(const char *format, ...)
 		else
 			write_buf(&inst, format + inst.cursor, 1);
 	}
+	// char	*c;
+	// while ((c = ft_strchr(inst.format + inst.cursor, '%')) != NULL)
+	// {
+	// 	if (c - inst.format > 0)
+	// 		write_buf(&inst, format + inst.cursor, c - inst.format);
+	// 	inst.cursor += c - inst.format;
+	// 	if (compute_formatter(&inst) == -1)
+	// 		break ;
+	// }
+	// if (inst.cursor < inst.format_len)
+	// 	write_buf(&inst, inst.format + inst.cursor, inst.format_len - inst.cursor);
 	write(1, inst.buffer, inst.buff_pos);
 	va_end(inst.args);
 	return (0);
