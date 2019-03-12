@@ -2,9 +2,13 @@
 #include <stdio.h>
 #include <limits.h>
 
+#define TEST(x, ...) \
+	printf(x, __VA_ARGS__);\
+	fflush(0);\
+	ft_printf(x, __VA_ARGS__);
+
 int		main(void)
 {
-	ft_printf("je suis une licorne %hhd %i \n", 15, 42);
-	printf("je suis une licorne %hhd %i \n", 15, 42);
-
+	int i = 0;
+	TEST("je suis une licorne %+5.4d %i\n", 500, 42);
 }

@@ -6,7 +6,7 @@
 #    By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:49:27 by llelievr          #+#    #+#              #
-#    Updated: 2019/03/06 14:17:58 by llelievr         ###   ########.fr        #
+#    Updated: 2019/03/12 14:19:06 by llelievr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ OK_STRING    = "OK"
 ERROR_STRING = "ERROR"
 WARN_STRING  = "WARNING"
 COM_STRING   = "Compiling"
-COMED_STRING   = "Compiled"
+COMED_STRING = "Compiled"
 
 define run_and_test
 	printf "%b" "$(COM_COLOR)$(COM_STRING) $(OBJ_COLOR)$(@F)$(NO_COLOR)\r"; \
