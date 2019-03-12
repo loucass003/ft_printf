@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 14:18:37 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/12 15:56:00 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/12 20:38:44 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,17 @@ typedef struct		s_printf
 	va_list			args;
 	va_list			prev_arg;
 	char			buffer[PRINTF_BUFF];
-	size_t			buff_pos;
+	intmax_t		buff_pos;
 	const char		*format;
-	size_t			cursor;
-	size_t			format_len;
+	intmax_t		cursor;
+	intmax_t		format_len;
 }					t_printf;
 
 typedef struct		s_format
 {
 	uint8_t			flags;
-	size_t			width;
-	size_t			precision;
+	intmax_t		width;
+	intmax_t		precision;
 	t_subsp			sub_sp;
 	char			specifier;
 	t_bool			negative;
@@ -78,6 +78,7 @@ typedef struct		s_specifier
 typedef union		u_arg
 {
 	uintmax_t		i;
+	intmax_t		si;
 	long double		d;
 	void			*p;
 }					t_arg;
@@ -89,11 +90,12 @@ int					specifier_x(t_arg i, t_printf *inst, t_format *fmt);
 
 int					compute_specifier(t_printf *inst, t_format *fmt);
 int					compute_formatter(t_printf *inst);
-int					write_buf(t_printf *inst, const char *str, size_t len);
+int					write_buf(t_printf *inst, const char *str, intmax_t len);
 
-void				repeat_char(t_printf *inst, char c, size_t len);
+void				repeat_char(t_printf *inst, char c, intmax_t len);
 int					get_flag(char c);
 uintmax_t			downcast(t_subsp sp, uintmax_t nb, t_bool unsign);
+uintmax_t			abs_uintmaxt(intmax_t n);
 
 int					ft_printf(const char *format, ...);
 

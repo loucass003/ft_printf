@@ -9,6 +9,5 @@
 
 int		main(void)
 {
-	int i = 0;
-	TEST("je suis une licorne %+5.4d %i\n", 500, 42);
+	TEST("je suis une licorne %-5.4d %i\n", 50, 42);
 }

@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:31:38 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/12 11:32:26 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/12 20:36:29 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,19 @@ int		get_flag(char c)
 	if (c == ' ')
 		return (f_space);
 	return (0);
+}
+
+uintmax_t		abs_uintmaxt(intmax_t n)
+{
+	return (n < 0 ? -n : n);
+}
+
+intmax_t			min(intmax_t a, intmax_t b)
+{
+	return (a < b ? a : b);
+}
+
+intmax_t			max(intmax_t a, intmax_t b)
+{
+	return (a > b ? a : b);
 }

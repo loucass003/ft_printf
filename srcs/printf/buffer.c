@@ -6,22 +6,22 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:32:42 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/12 15:00:56 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/12 20:35:20 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	repeat_char(t_printf *inst, char c, size_t len)
+void	repeat_char(t_printf *inst, char c, intmax_t len)
 {
-	size_t	i;
+	intmax_t	i;
 
 	i = -1;
 	while (++i < len)
 		write_buf(inst, &c, 1);
 }
 
-int		write_buf(t_printf *inst, const char *str, size_t len)
+int		write_buf(t_printf *inst, const char *str, intmax_t len)
 {
 	while (1)
 	{

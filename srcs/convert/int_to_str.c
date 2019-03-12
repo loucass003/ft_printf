@@ -6,13 +6,13 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 15:36:32 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/12 14:54:14 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:42:13 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_uint_to_str_p(uintmax_t nb, char *str, uint8_t *len, int8_t b)
+void	ft_uint_to_str_p(uintmax_t nb, char *str, uint8_t *len, int8_t b)
 {
 	const char	*base = b > 0 ? "0123456789abcdef" : "0123456789ABCDEF";
 	uintmax_t	tmp;
@@ -41,15 +41,15 @@ t_int_str	ft_uint_to_str(uintmax_t nb)
 	return (res);
 }
 
-t_int_str	ft_int_to_str(intmax_t nb, t_bool plus)
+t_int_str	ft_int_to_str(intmax_t nb)
 {
 	t_int_str		res;
 
-	ft_uint_to_str_p((uintmax_t)(nb < 0 ? -nb : nb), res.str + (nb < 0 || plus),
+	ft_uint_to_str_p((uintmax_t)(nb < 0 ? -nb : nb), res.str + (nb < 0),
 			&res.len, 10);
-	if (nb < 0 || plus)
+	if (nb < 0)
 	{
-		*res.str = nb < 0 ? '-' : '+';
+		*res.str = '-';
 		res.len++;
 	}
 	return (res);

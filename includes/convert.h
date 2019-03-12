@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 15:37:12 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/12 14:54:35 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:42:08 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ typedef struct	s_int_str8 {
 	uint8_t	len;
 }				t_int_str8;
 
-t_int_str		ft_int_to_str(intmax_t nb, t_bool plus);
+void			ft_uint_to_str_p(uintmax_t nb, char *str, uint8_t *len,
+					int8_t b);
+t_int_str		ft_int_to_str(intmax_t nb);
 t_int_str		ft_uint_to_str(uintmax_t nb);
 t_int_str16		ft_uint_to_str16(uintmax_t nb, uint8_t maj);
 t_int_str8		ft_uint_to_str8(uintmax_t nb);
