@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:40:45 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/12 13:10:24 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:45:42 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_arg	get_arg(t_printf *inst, t_format *fmt)
 
 int		get_arg_type(t_format *fmt)
 {
-	const char	*str = "diouxX";
+	const char	*str = "diouxXcs";
 	const int	i = ft_strchr(str, fmt->specifier) - str;
 
 	if (i < 2)
@@ -45,12 +45,16 @@ int		get_arg_type(t_format *fmt)
 			return (fmt->sub_sp == sp_l ? LONG : LLONG);
 		return (INT);
 	}
-	if (i >= 2)
+	if (i >= 2 && i < 6)
 	{
 		if (fmt->sub_sp == sp_l || fmt->sub_sp == sp_ll)
 			return (fmt->sub_sp == sp_l ? ULONG : ULLONG);
 		return (UINT);
 	}
+	if (i == 6)
+		return (INT);
+	if (i == 7)
+		return (PTR);
 	return (-1);
 }
 

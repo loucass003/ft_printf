@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 14:18:37 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/12 20:38:44 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:36:55 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct		s_printf
 typedef struct		s_format
 {
 	uint8_t			flags;
-	intmax_t		width;
+	uintmax_t		width;
 	intmax_t		precision;
 	t_subsp			sub_sp;
 	char			specifier;
@@ -78,7 +78,6 @@ typedef struct		s_specifier
 typedef union		u_arg
 {
 	uintmax_t		i;
-	intmax_t		si;
 	long double		d;
 	void			*p;
 }					t_arg;
@@ -87,6 +86,8 @@ int					specifier_d(t_arg i, t_printf *inst, t_format *fmt);
 int					specifier_o(t_arg i, t_printf *inst, t_format *fmt);
 int					specifier_u(t_arg i, t_printf *inst, t_format *fmt);
 int					specifier_x(t_arg i, t_printf *inst, t_format *fmt);
+int					specifier_c(t_arg i, t_printf *inst, t_format *fmt);
+int					specifier_s(t_arg i, t_printf *inst, t_format *fmt);
 
 int					compute_specifier(t_printf *inst, t_format *fmt);
 int					compute_formatter(t_printf *inst);
@@ -96,6 +97,8 @@ void				repeat_char(t_printf *inst, char c, intmax_t len);
 int					get_flag(char c);
 uintmax_t			downcast(t_subsp sp, uintmax_t nb, t_bool unsign);
 uintmax_t			abs_uintmaxt(intmax_t n);
+intmax_t			maxt(intmax_t a, intmax_t b);
+intmax_t			mint(intmax_t a, intmax_t b);
 
 int					ft_printf(const char *format, ...);
 
@@ -108,7 +111,9 @@ static t_specifier	g_spe[] =
 	[CHAR('o')] = (t_specifier){ specifier_o },
 	[CHAR('u')] = (t_specifier){ specifier_u },
 	[CHAR('x')] = (t_specifier){ specifier_x },
-	[CHAR('X')] = (t_specifier){ specifier_x }
+	[CHAR('X')] = (t_specifier){ specifier_x },
+	[CHAR('c')] = (t_specifier){ specifier_c },
+	[CHAR('s')] = (t_specifier){ specifier_s }
 };
 
 #endif
