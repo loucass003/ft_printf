@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 16:35:05 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/13 16:57:11 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/14 10:51:14 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int		specifier_s(t_arg i, t_printf *inst, t_format *f)
 
 	if (f->precision == 0)
 		return (0);
-	str = (char *)i.p;
-	str = !i.p ? "(null)" : i.p;
+	str = !i.p ? "(null)" : (char *)i.p;
 	slen = ft_strlen(str);
 	if (f->precision == -1 || !i.p)
 		f->precision = !i.p ? 6 : slen;

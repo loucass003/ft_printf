@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:39:19 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/13 13:21:33 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/14 17:40:26 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,22 @@ int		compute_precision(t_printf *inst, t_format *fmt)
 	{
 		inst->cursor++;
 		fmt->precision = 0;
-		while (ft_isdigit(inst->format[inst->cursor]))
+		while (inst->format[inst->cursor]
+			&& ft_isdigit(inst->format[inst->cursor]))
 			fmt->precision = fmt->precision * 10
 				+ inst->format[inst->cursor++] - '0';
+		if (inst->format[inst->cursor] == '*' && ++inst->cursor)
+			fmt->precision = va_arg(inst->args, int);
 	}
 	return (compute_sub_spe(inst, fmt));
 }
 
 int		compute_width(t_printf *inst, t_format *fmt)
 {
-	while (ft_isdigit(inst->format[inst->cursor]))
+	while (inst->format[inst->cursor] && ft_isdigit(inst->format[inst->cursor]))
 		fmt->width = fmt->width * 10 + inst->format[inst->cursor++] - '0';
+	if (inst->format[inst->cursor] == '*' && ++inst->cursor)
+		fmt->width = va_arg(inst->args, int);
 	return (compute_precision(inst, fmt));
 }
 

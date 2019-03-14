@@ -67,6 +67,7 @@ SRCS+=srcs/printf/ft_printf.c
 SRCS+=srcs/printf/specifiers/spe_c.c
 SRCS+=srcs/printf/specifiers/spe_d.c
 SRCS+=srcs/printf/specifiers/spe_o.c
+SRCS+=srcs/printf/specifiers/spe_p.c
 SRCS+=srcs/printf/specifiers/spe_s.c
 SRCS+=srcs/printf/specifiers/spe_u.c
 SRCS+=srcs/printf/specifiers/spe_x.c
