@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:40:45 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/14 12:27:59 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/15 18:27:05 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_arg	get_arg(t_printf *inst, t_format *fmt)
 	arg.i = 0;
 	if (fmt->varg_type == PTR)
 		arg.p = va_arg(inst->args, void *);
-	if (fmt->varg_type == INT)
+	else if (fmt->varg_type == INT)
 		arg.i = va_arg(inst->args, int);
 	else if (fmt->varg_type == UINT)
 		arg.i = va_arg(inst->args, unsigned int);
@@ -31,6 +31,10 @@ t_arg	get_arg(t_printf *inst, t_format *fmt)
 		arg.i = va_arg(inst->args, long long);
 	else if (fmt->varg_type == ULLONG)
 		arg.i = va_arg(inst->args, unsigned long long);
+	else if (fmt->varg_type == DOUBLE)
+		arg.d = va_arg(inst->args, double);
+	else if (fmt->varg_type == LDOUBLE)
+		arg.d = va_arg(inst->args, long double);
 	return (arg);
 }
 

@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 14:18:37 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/14 17:30:21 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/15 18:21:06 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef enum		e_types
 	LLONG,
 	ULONG,
 	ULLONG,
+	DOUBLE,
+	LDOUBLE,
 	PTR
 }					t_types;
 
@@ -92,6 +94,7 @@ int					specifier_x(t_arg i, t_printf *inst, t_format *fmt);
 int					specifier_c(t_arg i, t_printf *inst, t_format *fmt);
 int					specifier_s(t_arg i, t_printf *inst, t_format *fmt);
 int					specifier_p(t_arg i, t_printf *inst, t_format *fmt);
+int					specifier_f(t_arg i, t_printf *inst, t_format *fmt);
 
 t_types				subsp_arg_di(t_format *f, t_specifier s);
 t_types				subsp_arg_oux(t_format *f, t_specifier s);
@@ -122,7 +125,9 @@ static t_specifier	g_spe[127] =
 	[CHAR('X')] = (t_specifier){ subsp_arg_oux, UINT, specifier_x },
 	[CHAR('c')] = (t_specifier){ default_arg, INT, specifier_c },
 	[CHAR('s')] = (t_specifier){ default_arg, PTR, specifier_s },
-	[CHAR('p')] = (t_specifier){ default_arg, PTR, specifier_p }
+	[CHAR('p')] = (t_specifier){ default_arg, PTR, specifier_p },
+	[CHAR('f')] = (t_specifier){ default_arg, DOUBLE, specifier_f },
+	[CHAR('F')] = (t_specifier){ default_arg, LDOUBLE, specifier_f }
 };
 
 #endif

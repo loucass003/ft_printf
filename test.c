@@ -12,11 +12,5 @@
 int		main(void)
 {
 	int i = 24;
-	TEST("je suis une licorne %*.*d %i\n", 5, 3, i, i);
-
-
-	TEST("%.0s\n", "");
-	TEST("%.0s\n", NULL);
-	TEST("%.0s\n", "Okalm");
-	TEST("%.0s\n", "asd34a");
+	TEST("je suis une licorne %.7f %i\n", -10.99999971, i);
 }
