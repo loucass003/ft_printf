@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:32:42 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/13 14:02:19 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/19 17:52:42 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		write_buf(t_printf *inst, const char *str, intmax_t len)
 {
 	if (len <= 0)
 		return (0);
+	inst->writed_len += len;
 	while (1)
 	{
 		if (len < PRINTF_BUFF - inst->buff_pos)

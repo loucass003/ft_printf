@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 14:18:37 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/15 18:21:06 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/19 17:52:59 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct		s_printf
 	const char		*format;
 	intmax_t		cursor;
 	intmax_t		format_len;
+	uintmax_t		writed_len;
 }					t_printf;
 
 typedef struct		s_format
@@ -87,6 +88,26 @@ typedef union		u_arg
 	void			*p;
 }					t_arg;
 
+typedef union		u_float
+{
+	struct			s_parts
+	{
+		uint64_t	mantissa : 64;
+		uint16_t	exponent : 15;
+		uint8_t		sign : 1;
+	}				parts;
+	long double		v;
+}					t_float;
+
+typedef struct		s_str_float
+{
+	t_float			v;
+	uintmax_t		ipart;
+	uintmax_t		dpart;
+	t_int_str		s_ipart;
+	t_int_str		s_dpart;
+}					t_str_float;
+
 int					specifier_d(t_arg i, t_printf *inst, t_format *fmt);
 int					specifier_o(t_arg i, t_printf *inst, t_format *fmt);
 int					specifier_u(t_arg i, t_printf *inst, t_format *fmt);
@@ -110,6 +131,8 @@ uintmax_t			downcast(t_subsp sp, uintmax_t nb, t_bool unsign);
 uintmax_t			abs_uintmaxt(intmax_t n);
 intmax_t			maxt(intmax_t a, intmax_t b);
 intmax_t			mint(intmax_t a, intmax_t b);
+long double			abs_ld(long double a);
+long double			powld(long double n, int pow);
 
 int					ft_printf(const char *format, ...);
 
