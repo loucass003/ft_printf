@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:40:45 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/15 18:27:05 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/20 17:16:20 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ int		compute_specifier(t_printf *inst, t_format *fmt)
 		return (-1);
 	arg = get_arg(inst, fmt);
 	g_spe[CHAR(fmt->specifier)].fn(arg, inst, fmt);
+	inst->cursor++;
 	return (0);
 }
