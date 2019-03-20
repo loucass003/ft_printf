@@ -12,5 +12,7 @@
 int		main(void)
 {
 	int i = 24;
-	ft_printf("je suis une licorne %+20f %i\n", 10.99989971, i);
+	int j = 0;
+	while (j++ < 500)
+		ft_printf("je suis une licorne %+20f %i\n", 10.99989971, i);
 }
