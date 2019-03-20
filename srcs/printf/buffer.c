@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:32:42 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/19 17:52:42 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/20 16:03:22 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 void	repeat_char(t_printf *inst, char c, intmax_t len)
 {
-	intmax_t	i;
+	char		buff[8];
 
-	i = -1;
-	while (++i < len)
-		write_buf(inst, &c, 1);
+	ft_memset(buff, c, 8);
+	while (len > 8)
+	{
+		write_buf(inst, buff, 8);
+		len -= 8;
+	}
+	write_buf(inst, buff, len);
 }
 
 int		write_buf(t_printf *inst, const char *str, intmax_t len)
