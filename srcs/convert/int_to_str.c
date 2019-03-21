@@ -6,13 +6,13 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 15:36:32 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/12 19:42:13 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/21 14:47:27 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_uint_to_str_p(uintmax_t nb, char *str, uint8_t *len, int8_t b)
+void		ft_uint_to_str_p(uintmax_t nb, char *str, uint8_t *len, int8_t b)
 {
 	const char	*base = b > 0 ? "0123456789abcdef" : "0123456789ABCDEF";
 	uintmax_t	tmp;

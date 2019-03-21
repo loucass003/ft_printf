@@ -6,11 +6,22 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 13:04:00 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/18 17:28:41 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/21 15:19:55 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+t_types	subsp_arg_di(t_format *fmt, t_specifier spe)
+{
+	if (fmt->sub_sp == sp_l || fmt->sub_sp == sp_ll)
+		return (fmt->sub_sp == sp_l ? LONG : LLONG);
+	if (fmt->sub_sp == sp_j)
+		return (INTMAX);
+	if (fmt->sub_sp == sp_z)
+		return (SIZET);
+	return (spe.default_arg);
+}
 
 int		specifier_d(t_arg i, t_printf *inst, t_format *f)
 {

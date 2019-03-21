@@ -13,6 +13,7 @@ int		main(void)
 {
 	int i = 24;
 	int j = 0;
-	while (j++ < 500)
-		ft_printf("je suis une licorne %+20f %i\n", 10.99989971, i);
+	//while (j++ < 500)
+	unsigned int		nb;
+	TEST("Je suis une licorne ho ho ho %.5p\n", 0)
 }

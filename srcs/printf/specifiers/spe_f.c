@@ -6,11 +6,18 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 11:01:06 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/19 18:02:34 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/21 16:31:08 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+t_types		subsp_arg_f(t_format *fmt, t_specifier spe)
+{
+	if (fmt->sub_sp == sp_L)
+		return (LDOUBLE);
+	return (spe.default_arg);
+}
 
 void		computeld(t_format *f, t_str_float *s,
 	long double d)

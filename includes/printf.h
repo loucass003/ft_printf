@@ -6,10 +6,9 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 14:18:37 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/19 17:52:59 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/21 15:58:18 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef PRINTF_H
 # define PRINTF_H
@@ -17,7 +16,7 @@
 # include <stdarg.h>
 # include <unistd.h>
 
-# define PRINTF_BUFF 4
+# define PRINTF_BUFF 4096
 
 typedef enum		e_flag
 {
@@ -34,7 +33,10 @@ typedef enum		e_subsp
 	sp_hh,
 	sp_h,
 	sp_l,
-	sp_ll
+	sp_L,
+	sp_ll,
+	sp_j,
+	sp_z,
 }					t_subsp;
 
 typedef enum		e_types
@@ -48,6 +50,9 @@ typedef enum		e_types
 	ULLONG,
 	DOUBLE,
 	LDOUBLE,
+	INTMAX,
+	UINTMAX,
+	SIZET,
 	PTR
 }					t_types;
 
@@ -116,9 +121,11 @@ int					specifier_c(t_arg i, t_printf *inst, t_format *fmt);
 int					specifier_s(t_arg i, t_printf *inst, t_format *fmt);
 int					specifier_p(t_arg i, t_printf *inst, t_format *fmt);
 int					specifier_f(t_arg i, t_printf *inst, t_format *fmt);
+int					specifier_percent(t_arg i, t_printf *inst, t_format *fmt);
 
 t_types				subsp_arg_di(t_format *f, t_specifier s);
 t_types				subsp_arg_oux(t_format *f, t_specifier s);
+t_types				subsp_arg_f(t_format *f, t_specifier s);
 t_types				default_arg(t_format *f, t_specifier s);
 
 int					compute_specifier(t_printf *inst, t_format *fmt);
@@ -136,9 +143,9 @@ long double			powld(long double n, int pow);
 
 int					ft_printf(const char *format, ...);
 
-# define CHAR(x) (x - 'A')
+# define CHAR(x) (x - '%')
 
-static t_specifier	g_spe[127] =
+static t_specifier	g_spe[] =
 {
 	[CHAR('d')] = (t_specifier){ subsp_arg_di, INT, specifier_d },
 	[CHAR('i')] = (t_specifier){ subsp_arg_di, INT, specifier_d },
@@ -149,8 +156,9 @@ static t_specifier	g_spe[127] =
 	[CHAR('c')] = (t_specifier){ default_arg, INT, specifier_c },
 	[CHAR('s')] = (t_specifier){ default_arg, PTR, specifier_s },
 	[CHAR('p')] = (t_specifier){ default_arg, PTR, specifier_p },
-	[CHAR('f')] = (t_specifier){ default_arg, DOUBLE, specifier_f },
-	[CHAR('F')] = (t_specifier){ default_arg, LDOUBLE, specifier_f }
+	[CHAR('f')] = (t_specifier){ subsp_arg_f, DOUBLE, specifier_f },
+	[CHAR('F')] = (t_specifier){ subsp_arg_f, DOUBLE, specifier_f },
+	[CHAR('%')] = (t_specifier){ .fn = specifier_percent }
 };
 
 #endif

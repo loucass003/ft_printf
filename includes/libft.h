@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:23:49 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/06 15:39:54 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/21 14:55:02 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@
 # include "strings.h"
 # include "memory.h"
 # include "convert.h"
-# include "lists.h"
 # include "maths.h"
-# include "ui.h"
-# include "json.h"
 # include "printf.h"
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:32:42 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/20 17:18:44 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/20 18:14:31 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ int		write_buf(t_printf *inst, const char *str, intmax_t len)
 	{
 		if (len < PRINTF_BUFF - inst->buff_pos)
 		{
-			ft_memcpy(inst->buffer + inst->buff_pos, str,
-				len);
+			ft_memcpy(inst->buffer + inst->buff_pos, str, len);
 			inst->buff_pos += len;
 			break ;
 		}

@@ -6,43 +6,37 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:03:04 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/20 17:24:06 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/21 17:13:16 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void		*memcpy8(uint64_t *dst, uint64_t *src, size_t *i)
-{
-	*i -= 8;
-	dst[*i] = src[*i];
-	return (dst);
-}
-
-static void		*memcpy4(uint32_t *dst, uint32_t *src, size_t *i)
-{
-	*i -= 4;
-	dst[*i] = src[*i];
-	return (dst);
-}
-
-static void		*memcpy1(uint8_t *dst, uint8_t *src, size_t *i)
-{
-	--*i;
-	dst[*i] = src[*i];
-	return (dst);
-}
-
 void			*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	while (n > 0)
-	{
-		if (n >= 8)
-			memcpy8((uint64_t *)dst, (uint64_t *)src, &n);
-		else if (n >= 4)
-			memcpy4((uint32_t *)dst, (uint32_t *)src, &n);
+	size_t		i;
+
+	i = 0;
+	while (i < n)
+		if (n - i >= 8)
+		{
+			((uint64_t *)dst)[i / 8] = ((uint64_t *)src)[i / 8];
+			i += 8;
+		}
+		else if (n - i >= 4)
+		{
+			((uint32_t *)dst)[i / 4] = ((uint32_t *)src)[i / 4];
+			i += 4;
+		}
+		else if (n - i >= 2)
+		{
+			((uint16_t *)dst)[i / 2] = ((uint16_t *)src)[i / 2];
+			i += 2;
+		}
 		else
-			memcpy1((uint8_t *)dst, (uint8_t *)src, &n);
-	}
+		{
+			((uint8_t *)dst)[i] = ((uint8_t *)src)[i];
+			i++;
+		}
 	return (dst);
 }

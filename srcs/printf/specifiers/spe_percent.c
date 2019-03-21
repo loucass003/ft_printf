@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   spe_percent.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 15:06:37 by llelievr          #+#    #+#             */
-/*   Updated: 2018/11/28 14:06:32 by llelievr         ###   ########.fr       */
+/*   Created: 2019/03/21 14:43:32 by llelievr          #+#    #+#             */
+/*   Updated: 2019/03/21 16:18:53 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strcpy(char *dst, const char *src)
+int		specifier_percent(t_arg i, t_printf *inst, t_format *f)
 {
-	char	*start;
-
-	start = dst;
-	while (*src)
-		*dst++ = *src++;
-	*dst = '\0';
-	return (start);
+	(void)i;
+	if (f->width > 1 && !(f->flags & f_minus))
+		repeat_char(inst, f->flags & f_zero ? '0' : ' ', f->width - 1);
+	write_buf(inst, "%", 1);
+	if (f->width > 1 && !!(f->flags & f_minus))
+		repeat_char(inst, ' ', f->width - 1);
+	return (0);
 }

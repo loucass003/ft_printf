@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:39:19 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/14 17:40:26 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/21 16:16:35 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ int		compute_sub_spe(t_printf *inst, t_format *fmt)
 			fmt->sub_sp = sp_ll;
 		inst->cursor++;
 	}
+	else if (inst->format[inst->cursor] == 'j' && ++inst->cursor)
+		fmt->sub_sp = sp_j;
+	else if (inst->format[inst->cursor] == 'z' && ++inst->cursor)
+		fmt->sub_sp = sp_z;
+	else if (inst->format[inst->cursor] == 'L' && ++inst->cursor)
+		fmt->sub_sp = sp_L;
 	return (compute_specifier(inst, fmt));
 }
 
@@ -45,7 +51,11 @@ int		compute_precision(t_printf *inst, t_format *fmt)
 			fmt->precision = fmt->precision * 10
 				+ inst->format[inst->cursor++] - '0';
 		if (inst->format[inst->cursor] == '*' && ++inst->cursor)
+		{
 			fmt->precision = va_arg(inst->args, int);
+			if ((int)fmt->precision < 0)
+				fmt->precision = -1;
+		}
 	}
 	return (compute_sub_spe(inst, fmt));
 }
@@ -55,7 +65,14 @@ int		compute_width(t_printf *inst, t_format *fmt)
 	while (inst->format[inst->cursor] && ft_isdigit(inst->format[inst->cursor]))
 		fmt->width = fmt->width * 10 + inst->format[inst->cursor++] - '0';
 	if (inst->format[inst->cursor] == '*' && ++inst->cursor)
+	{
 		fmt->width = va_arg(inst->args, int);
+		if ((int)fmt->width < 0)
+		{
+			fmt->width *= -1;
+			fmt->flags |= f_minus;
+		}
+	}
 	return (compute_precision(inst, fmt));
 }
 
@@ -84,12 +101,8 @@ int		compute_formatter(t_printf *inst)
 	if (inst->cursor + 1 < inst->format_len)
 	{
 		inst->cursor++;
-		if (inst->format[inst->cursor] == '%')
-		{
-			write_buf(inst, inst->format + inst->cursor, 1);
-			return (1);
-		}
 		return (compute_flag(inst, &fmt));
 	}
+	inst->cursor++;
 	return (0);
 }
