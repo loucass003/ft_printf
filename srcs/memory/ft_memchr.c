@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 14:02:14 by llelievr          #+#    #+#             */
-/*   Updated: 2018/11/12 16:23:11 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:49:13 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,29 @@
 
 void				*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned char	*src;
-	size_t			i;
+	const int		*c_s = s;
+	unsigned char	*b_s;
+	int				repeated_c;
+	int				mask;
 
-	src = (unsigned char*)s;
-	i = 0;
-	while (i < n)
+	repeated_c = (c & 0xFF) | ((c & 0xFF) << 8);
+	repeated_c |= repeated_c << 16;
+	while (n >= 4)
 	{
-		if (src[i] == (unsigned char)c)
-			return (src + i);
-		i++;
+		mask = *c_s++ ^ repeated_c;
+		if ((mask & 0xff) == 0)
+			return ((void *)c_s - 4);
+		if ((mask & 0xff00) == 0)
+			return ((void *)c_s - 3);
+		if ((mask & 0xff0000) == 0)
+			return ((void *)c_s - 2);
+		if ((mask & 0xff000000) == 0)
+			return ((void *)c_s - 1);
+		n -= 4;
 	}
+	b_s = (unsigned char *)c_s;
+	while (n--)
+		if (*b_s++ == (unsigned char)c)
+			return ((void *)b_s - 1);
 	return (NULL);
 }
