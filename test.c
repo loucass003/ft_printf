@@ -13,7 +13,7 @@ int		main(void)
 {
 	int i = 24;
 	int j = 0;
-	unsigned int		nb;
+	unsigned int		nb = 4080;
 	while (j++ < 500)
-		TEST("Je suis une licorne %41d\n", 0)
+		ft_printf("Je suis une licorne %41d\n", nb);
 }
