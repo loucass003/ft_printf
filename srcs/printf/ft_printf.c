@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 14:34:00 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/21 16:11:17 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:19:21 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,14 @@ int		ft_printf(const char *format, ...)
 		.cursor = 0 };
 	va_start(inst.args, format);
 	c = (char *)inst.format;
-	while ((c = ft_strchr(c, '%')) && inst.cursor < inst.format_len)
+	while ((c = ft_memchr(c, '%', inst.format_len - inst.cursor))
+		&& inst.cursor < inst.format_len)
 	{
 		write_buf(&inst, inst.format + inst.cursor,
 			c - (inst.format + inst.cursor));
 		inst.cursor += c - (inst.format + inst.cursor);
-		if (compute_formatter(&inst) == -1)
-		{
-			inst.writed_len = -1;
+		if (compute_formatter(&inst) == -1 && !!(inst.writed_len = -1))
 			break ;
-		}
 		c = (char *)inst.format + inst.cursor;
 	}
 	write_buf(&inst, inst.format + inst.cursor, inst.format_len - inst.cursor);

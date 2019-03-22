@@ -15,5 +15,5 @@ int		main(void)
 	int j = 0;
 	unsigned int		nb = 4080;
 	while (j++ < 500)
-		ft_printf("Je suis une licorne %41d\n", nb);
+		ft_printf("Je suis une licorne %d\n", nb);
 }
