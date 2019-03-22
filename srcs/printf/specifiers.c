@@ -6,7 +6,7 @@
 /*   By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/12 11:40:45 by llelievr          #+#    #+#             */
-/*   Updated: 2019/03/21 15:20:02 by llelievr         ###   ########.fr       */
+/*   Updated: 2019/03/22 11:40:33 by llelievr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,17 @@ t_types	default_arg(t_format *fmt, t_specifier spe)
 
 int		compute_specifier(t_printf *inst, t_format *fmt)
 {
-	char		*c;
 	t_arg		arg;
 	t_specifier	spe;
 
-	if (!(c = ft_strchr("%spdiouxXcfF", inst->format[inst->cursor])))
-		return (-1);
-	fmt->specifier = *c;
+	if (!inst->format[inst->cursor])
+		return (0);
+	fmt->specifier = inst->format[inst->cursor];
 	spe = g_spe[CHAR(fmt->specifier)];
-	if (*c != '%' && (fmt->varg_type = spe.get_arg(fmt, spe)) == TYPES_NONE)
+	if (spe.fn == 0)
+		return (0);
+	if (inst->format[inst->cursor] != '%'
+		&& (fmt->varg_type = spe.get_arg(fmt, spe)) == TYPES_NONE)
 		return (-1);
 	get_arg(inst, fmt, &arg);
 	g_spe[CHAR(fmt->specifier)].fn(arg, inst, fmt);

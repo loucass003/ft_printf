@@ -6,7 +6,7 @@
 #    By: llelievr <llelievr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:49:27 by llelievr          #+#    #+#              #
-#    Updated: 2019/03/21 17:12:59 by llelievr         ###   ########.fr        #
+#    Updated: 2019/03/22 11:44:36 by llelievr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJ_DIR = $(BUILD_DIR)/objs
 DEP_DIR = $(BUILD_DIR)/deps
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Iincludes -O3 -flto
+CFLAGS = -Wall -Wextra -Iincludes -flto -O3
 PRECOMPILE = @mkdir -p $(dir $@)
 POSTCOMPILE =
 

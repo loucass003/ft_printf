@@ -15,5 +15,5 @@ int		main(void)
 	int j = 0;
 	//while (j++ < 500)
 	unsigned int		nb;
-	TEST("Je suis une licorne ho ho ho %.5p\n", 0)
+	TEST("Je suis une licorne %41d\n", 0)
 }
