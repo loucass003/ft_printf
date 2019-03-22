@@ -13,7 +13,7 @@ int		main(void)
 {
 	int i = 24;
 	int j = 0;
-	//while (j++ < 500)
 	unsigned int		nb;
-	TEST("Je suis une licorne %41d\n", 0)
+	while (j++ < 500)
+		TEST("Je suis une licorne %41d\n", 0)
 }
